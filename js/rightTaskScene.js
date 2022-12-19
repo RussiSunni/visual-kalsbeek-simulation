@@ -9,7 +9,6 @@ class RightTaskScene extends Phaser.Scene {
 
     }
     create() {
-
         // Right side
         this.rightSideRect = this.add.graphics();
         this.rightSideRect.fillStyle(0xFF0000);
@@ -17,19 +16,7 @@ class RightTaskScene extends Phaser.Scene {
 
         this.letterText = this.add.text(350, 200, this.letterTextArray[0], { fontFamily: "Arial", fontSize: "168px" });
 
-        // var timer = this.scene.time.addEvent({
-        //     delay: 500,                // ms
-        //     callback: callback,
-        //     //args: [],
-        //     callbackScope: thisArg,
-        //     repeat: 4
-        // });
-
-        // function callback() {
-        //     console.log("test")
-        // }
-
-        this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onEvent, callbackScope: this, loop: true });
+        this.timedEvent = this.time.addEvent({ delay: 500, callback: this.changeLetter, callbackScope: this, loop: true });
 
     }
 
@@ -38,7 +25,7 @@ class RightTaskScene extends Phaser.Scene {
             this.rightSideRect.y--;
     }
 
-    onEvent() {
-        console.log("test")
+    changeLetter() {
+        this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
     }
 }
