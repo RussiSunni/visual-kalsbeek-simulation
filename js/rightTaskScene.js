@@ -9,8 +9,11 @@ class RightTaskScene extends Phaser.Scene {
         this.NKey;
         this.MKey;
         this.gameOver = false;
+        this.hasWon = false;
         this.gameOverAudio;
         this.gameOverAudioIteration = 0;
+        this.winTimer;
+        this.winText;
     }
     preload() {
         this.load.audio("gameOver", ["audio/game-over.wav"]);
@@ -23,7 +26,6 @@ class RightTaskScene extends Phaser.Scene {
 
         // Letters -----------------------.
         this.letterText = this.add.text(350, 200, this.letterTextArray[0], { fontFamily: "Arial", fontSize: "168px" });
-
         // Letter Timer.
         this.timedEvent = this.time.addEvent({ delay: 500, callback: this.changeLetter, callbackScope: this, loop: true });
 
@@ -36,11 +38,16 @@ class RightTaskScene extends Phaser.Scene {
         this.gameOverAudio = this.sound.add("gameOver");
         this.gameOverAudio.on("complete", this.repeatAudio, this);
 
+        // Win State------------------------------------
+        this.winTimer = this.time.delayedCall(4000, this.winEvent, [], this);
+
+        this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
+        this.winText.alpha = 0;
     }
 
     update() {
         // Bar rising.
-        if (this.rightSideRect.y > -400) {
+        if (this.rightSideRect.y > -400 && this.hasWon == false) {
             this.rightSideRect.y--;
         }
         else {
@@ -69,12 +76,21 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     changeLetter() {
-        this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
-        this.currentLetter = this.letterText.text;
+        if (this.gameOver == false && this.hasWon == false) {
+            this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
+            this.currentLetter = this.letterText.text;
+        }
     }
 
     gameOver() {
 
+    }
+
+    winEvent() {
+        if (this.gameOver == false) {
+            this.winText.alpha = 1;
+            this.hasWon = true;
+        }
     }
 
     repeatAudio() {
