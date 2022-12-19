@@ -48,6 +48,24 @@ class AlignGrid {
         var xx = index - (yy * this.config.cols);
         this.placeAt(xx, yy, obj);
     }
+    findNearestIndex(xx, yy) {
+        var row = Math.floor(yy / this.ch);
+        var col = Math.floor(xx / this.cw);
+        console.log("row=" + row);
+        console.log("col=" + col);
+        var index = (row * this.config.cols) + col;
+        return index;
+    }
+    getPosByIndex(index) {
+        var yy = Math.floor(index / this.config.cols);
+        var xx = index - (yy * this.config.cols);
+        var x2 = this.cw * xx + this.cw / 2;
+        var y2 = this.ch * yy + this.ch / 2;
+        return {
+            x: x2,
+            y: y2
+        }
+    }
     showNumbers() {
         this.show();
         var count = 0;
