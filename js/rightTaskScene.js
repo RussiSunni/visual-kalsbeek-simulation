@@ -19,8 +19,8 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     init(data) {
-        this.rRiseRate = data.r_bar_up_rate;
-        this.rDropRate = data.r_bar_down_rate;
+        this.rRiseRate = parseInt(data.r_bar_up_rate);
+        this.rDropRate = parseInt(data.r_bar_down_rate);
     }
 
     preload() {
@@ -48,7 +48,7 @@ class RightTaskScene extends Phaser.Scene {
         this.gameOverAudio.on("complete", this.repeatAudio, this);
 
         // Win State------------------------------------
-        this.winTimer = this.time.delayedCall(4000, this.winEvent, [], this);
+        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
 
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
@@ -56,7 +56,7 @@ class RightTaskScene extends Phaser.Scene {
 
     update() {
         // Bar rising.
-        if (this.rightSideRect.y > -400 && this.hasWon == false) {
+        if (this.rightSideRect.y > -400 && this.hasWon == false && this.gameOver == false) {
             this.rightSideRect.y = this.rightSideRect.y - this.rRiseRate;
         }
         else if (this.hasWon == false) {
@@ -67,19 +67,28 @@ class RightTaskScene extends Phaser.Scene {
         }
 
         // Test for Correct Key.
-        if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
-            if (this.currentLetter == "a") {
-                this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+        if (this.hasWon == false && this.gameOver == false) {
+            if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
+                if (this.currentLetter == "a") {
+                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    console.log(this.rDropRate)
+                }
+
             }
-        }
-        else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
-            if (this.currentLetter == "b") {
-                this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+            else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
+                if (this.currentLetter == "b") {
+                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    console.log(this.rDropRate)
+                }
             }
-        }
-        else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
-            if (this.currentLetter == "c") {
-                this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+            else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
+                if (this.currentLetter == "c") {
+                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    console.log(this.rDropRate)
+                }
             }
         }
     }
