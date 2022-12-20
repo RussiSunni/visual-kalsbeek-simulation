@@ -1,17 +1,19 @@
 class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
+        this.rRiseRate;
+        this.rDropRate;
     }
     init(data) {
         console.log('init', data);
-
+        this.rRiseRate = data.r_bar_down_rate;
+        this.rDropRate = data.r_bar_up_rate;
     }
 
     preload() {
 
     }
     create() {
-
         // Menu button
         var roundedRect1 = this.add.graphics();
         roundedRect1.fillStyle(0x70ad47, 1);
@@ -55,7 +57,7 @@ class MenuScene extends Phaser.Scene {
         this.container3.on('pointerout', function () {
         }, this);
         this.container3.on('pointerdown', function () {
-            this.scene.start("RightTaskScene");
+            this.scene.start("RightTaskScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate });
         }, this);
 
 
