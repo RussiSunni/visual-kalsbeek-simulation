@@ -57,10 +57,9 @@ class RightTaskScene extends Phaser.Scene {
     update() {
         // Bar rising.
         if (this.rightSideRect.y > -400 && this.hasWon == false) {
-            //this.rightSideRect.y--;
             this.rightSideRect.y = this.rightSideRect.y - this.rRiseRate;
         }
-        else {
+        else if (this.hasWon == false) {
             if (this.gameOver == false) {
                 this.gameOver = true;
                 this.gameOverAudio.play();
