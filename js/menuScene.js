@@ -2,10 +2,16 @@ class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
     }
+    init(data) {
+        console.log('init', data);
+
+    }
+
     preload() {
 
     }
     create() {
+
         // Menu button
         var roundedRect1 = this.add.graphics();
         roundedRect1.fillStyle(0x70ad47, 1);
