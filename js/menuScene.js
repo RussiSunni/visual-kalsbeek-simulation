@@ -1,13 +1,22 @@
 class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
-        this.rRiseRate;
-        this.rDropRate;
+        this.rRiseRate = 1;
+        this.rDropRate = 100;
     }
     init(data) {
-        console.log('init', data);
-        this.rRiseRate = data.r_bar_down_rate;
-        this.rDropRate = data.r_bar_up_rate;
+        console.log(data);
+        if (data
+            && Object.keys(data).length === 0
+            && Object.getPrototypeOf(data) === Object.prototype) {
+        }
+        else {
+            this.rRiseRate = data.r_bar_down_rate;
+            this.rDropRate = data.r_bar_up_rate;
+        }
+
+        console.log(this.rRiseRate);
+        console.log(this.rDropRate);
     }
 
     preload() {
