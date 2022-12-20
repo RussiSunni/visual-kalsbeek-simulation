@@ -2,7 +2,7 @@ class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
         this.rRiseRate = 1;
-        this.rDropRate = 100;
+        this.rDropRate = 8;
     }
     init(data) {
         if (data

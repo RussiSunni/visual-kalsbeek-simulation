@@ -4,7 +4,8 @@ class RightTaskScene extends Phaser.Scene {
         this.rightSideRect;
         this.letterTextArray = ["a", "b", "c"];
         this.currentLetter;
-        this.timedEvent;
+        this.barTimedEvent;
+        this.letterTimedEvent;
         this.BKey;
         this.NKey;
         this.MKey;
@@ -32,11 +33,12 @@ class RightTaskScene extends Phaser.Scene {
         this.rightSideRect = this.add.graphics();
         this.rightSideRect.fillStyle(0xFF0000);
         this.rightSideRect.fillRect(500, 400, 100, 600);
+        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
 
         // Letters -----------------------.
         this.letterText = this.add.text(350, 200, this.letterTextArray[0], { fontFamily: "Arial", fontSize: "168px" });
         // Letter Timer.
-        this.timedEvent = this.time.addEvent({ delay: 500, callback: this.changeLetter, callbackScope: this, loop: true });
+        this.letterTimedEvent = this.time.addEvent({ delay: 50, callback: this.changeLetter, callbackScope: this, loop: true });
 
         // Keyboard Keys.
         this.BKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
@@ -55,39 +57,25 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     update() {
-        // Bar rising.
-        if (this.rightSideRect.y > -400 && this.hasWon == false && this.gameOver == false) {
-            this.rightSideRect.y = this.rightSideRect.y - this.rRiseRate;
-        }
-        else if (this.hasWon == false) {
-            if (this.gameOver == false) {
-                this.gameOver = true;
-                this.gameOverAudio.play();
-            }
-        }
 
         // Test for Correct Key.
         if (this.hasWon == false && this.gameOver == false) {
             if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
                 if (this.currentLetter == "a") {
-                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    console.log(this.rDropRate)
+                    this.changeLetter();
                 }
-
             }
             else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
                 if (this.currentLetter == "b") {
-                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    console.log(this.rDropRate)
+                    this.changeLetter();
                 }
             }
             else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
                 if (this.currentLetter == "c") {
-                    //this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    console.log(this.rDropRate)
+                    this.changeLetter();
                 }
             }
         }
@@ -97,6 +85,19 @@ class RightTaskScene extends Phaser.Scene {
         if (this.gameOver == false && this.hasWon == false) {
             this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
             this.currentLetter = this.letterText.text;
+        }
+    }
+
+    raiseBar() {
+        // Bar rising.
+        if (this.rightSideRect.y > -400 && this.hasWon == false && this.gameOver == false) {
+            this.rightSideRect.y = this.rightSideRect.y - this.rRiseRate;
+        }
+        else if (this.hasWon == false) {
+            if (this.gameOver == false) {
+                this.gameOver = true;
+                this.gameOverAudio.play();
+            }
         }
     }
 
