@@ -3,6 +3,7 @@ class MenuScene extends Phaser.Scene {
         super('MenuScene');
         this.rRiseRate = 1;
         this.rDropRate = 8;
+        this.rPenaltyRate = 0;
     }
     init(data) {
         if (data
@@ -12,6 +13,7 @@ class MenuScene extends Phaser.Scene {
         else {
             this.rRiseRate = data.r_bar_up_rate;
             this.rDropRate = data.r_bar_down_rate;
+            this.rPenaltyRate = data.r_bar_penalty_rate;
         }
     }
 
@@ -27,8 +29,14 @@ class MenuScene extends Phaser.Scene {
         this.container1 = this.add.container(300, 400, [roundedRect1, text1]);
         this.container1.setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 100), Phaser.Geom.Rectangle.Contains);
         this.container1.on('pointerover', function () {
+            roundedRect1.clear();
+            roundedRect1.fillStyle(0x5d913a, 1);
+            roundedRect1.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container1.on('pointerout', function () {
+            roundedRect1.clear();
+            roundedRect1.fillStyle(0x70ad47, 1);
+            roundedRect1.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container1.on('pointerdown', function () {
             this.scene.start("ParametersScene");
@@ -42,8 +50,14 @@ class MenuScene extends Phaser.Scene {
         this.container2 = this.add.container(100, 200, [roundedRect2, text2]);
         this.container2.setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 100), Phaser.Geom.Rectangle.Contains);
         this.container2.on('pointerover', function () {
+            roundedRect2.clear();
+            roundedRect2.fillStyle(0x5d913a, 1);
+            roundedRect2.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container2.on('pointerout', function () {
+            roundedRect2.clear();
+            roundedRect2.fillStyle(0x70ad47, 1);
+            roundedRect2.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container2.on('pointerdown', function () {
             console.log("pressed")
@@ -58,12 +72,18 @@ class MenuScene extends Phaser.Scene {
         this.container3 = this.add.container(500, 200, [roundedRect3, text3]);
         this.container3.setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 100), Phaser.Geom.Rectangle.Contains);
         this.container3.on('pointerover', function () {
+            roundedRect3.clear();
+            roundedRect3.fillStyle(0x5d913a, 1);
+            roundedRect3.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container3.on('pointerout', function () {
+            roundedRect3.clear();
+            roundedRect3.fillStyle(0x70ad47, 1);
+            roundedRect3.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container3.on('pointerdown', function () {
-            this.scene.start("RightTaskScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate });
-        }, this);
+            this.scene.start("RightTaskScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate, r_bar_penalty_rate: this.rPenaltyRate });
+        }, this); 
 
 
 
@@ -74,5 +94,6 @@ class MenuScene extends Phaser.Scene {
         });
         this.formUtil.hideElement("r_bar_up_rate");
         this.formUtil.hideElement("r_bar_down_rate");
+        this.formUtil.hideElement("r_bar_penalty_rate");
     }
 }

@@ -17,18 +17,19 @@ class RightTaskScene extends Phaser.Scene {
         this.winText;
         this.rRiseRate;
         this.rDropRate;
+        this.rPenaltyRate;
     }
 
     init(data) {
         this.rRiseRate = parseInt(data.r_bar_up_rate);
         this.rDropRate = parseInt(data.r_bar_down_rate);
+        this.rPenaltyRate = parseInt(data.r_bar_penalty_rate);
     }
 
     preload() {
         this.load.audio("gameOver", ["audio/game-over.wav"]);
     }
     create() {
-
         // Bar.
         this.rightSideRect = this.add.graphics();
         this.rightSideRect.fillStyle(0xFF0000);
@@ -65,17 +66,35 @@ class RightTaskScene extends Phaser.Scene {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetter();
                 }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
+                }
             }
             else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
                 if (this.currentLetter == "b") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetter();
                 }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
+                }
             }
             else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
                 if (this.currentLetter == "c") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetter();
+                }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
                 }
             }
         }
