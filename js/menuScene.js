@@ -1,6 +1,9 @@
 class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
+        this.lRiseRate = 1;
+        this.lDropRate = 8;
+        this.lPenaltyRate = 0;
         this.rRiseRate = 1;
         this.rDropRate = 8;
         this.rPenaltyRate = 0;
@@ -11,6 +14,9 @@ class MenuScene extends Phaser.Scene {
             && Object.getPrototypeOf(data) === Object.prototype) {
         }
         else {
+            this.lRiseRate = data.l_bar_up_rate;
+            this.lDropRate = data.l_bar_down_rate;
+            this.lPenaltyRate = data.l_bar_penalty_rate;
             this.rRiseRate = data.r_bar_up_rate;
             this.rDropRate = data.r_bar_down_rate;
             this.rPenaltyRate = data.r_bar_penalty_rate;
@@ -60,7 +66,7 @@ class MenuScene extends Phaser.Scene {
             roundedRect2.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container2.on('pointerdown', function () {
-            console.log("pressed")
+            this.scene.start("LeftTaskScene", { l_bar_up_rate: this.rRiseRate, l_bar_down_rate: this.rDropRate, l_bar_penalty_rate: this.rPenaltyRate });
         }, this);
 
 
@@ -83,7 +89,7 @@ class MenuScene extends Phaser.Scene {
         }, this);
         this.container3.on('pointerdown', function () {
             this.scene.start("RightTaskScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate, r_bar_penalty_rate: this.rPenaltyRate });
-        }, this); 
+        }, this);
 
 
 

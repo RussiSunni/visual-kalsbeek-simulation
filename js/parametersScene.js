@@ -1,6 +1,9 @@
 class ParametersScene extends Phaser.Scene {
     constructor() {
         super('ParametersScene');
+        this.lRiseRate = 1;
+        this.lDropRate = 8;
+        this.lPenaltyRate = 0;
         this.rRiseRate = 1;
         this.rDropRate = 8;
         this.rPenaltyRate = 0;
@@ -16,6 +19,9 @@ class ParametersScene extends Phaser.Scene {
             cols: 11
         });
 
+        this.formUtil.showElement("l_bar_up_rate");
+        this.formUtil.showElement("l_bar_down_rate");
+        this.formUtil.showElement("l_bar_penalty_rate");
         this.formUtil.showElement("r_bar_up_rate");
         this.formUtil.showElement("r_bar_down_rate");
         this.formUtil.showElement("r_bar_penalty_rate");
