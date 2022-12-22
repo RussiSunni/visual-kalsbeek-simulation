@@ -19,30 +19,37 @@ class ParametersScene extends Phaser.Scene {
             cols: 11
         });
 
-        this.formUtil.showElement("l_bar_up_rate");
-        this.formUtil.showElement("l_bar_down_rate");
-        this.formUtil.showElement("l_bar_penalty_rate");
-        this.formUtil.showElement("r_bar_up_rate");
-        this.formUtil.showElement("r_bar_down_rate");
-        this.formUtil.showElement("r_bar_penalty_rate");
 
-        var rTitle = this.add.text(50, 25, "Right Side", { fontFamily: "Arial", fontSize: "48px", color: '#FFFFFF' });
-        var lTitle = this.add.text(450, 25, "Left Side", { fontFamily: "Arial", fontSize: "48px", color: '#FFFFFF' });
+        var lTitle = this.add.text(220, 25, "Left Side", { fontFamily: "Arial", fontSize: "48px", color: '#FFFFFF' });
+        var rTitle = this.add.text(500, 25, "Right Side", { fontFamily: "Arial", fontSize: "48px", color: '#FFFFFF' });
 
-        var text1 = this.add.text(450, 120, "climb rate", { fontFamily: "Arial", fontSize: "30px" });
+
+        var text1 = this.add.text(20, 120, "climb rate", { fontFamily: "Arial", fontSize: "30px" });
         this.formUtil.showElement("r_bar_up_rate");
         this.formUtil.scaleToGameW("r_bar_up_rate", .1);
-        this.formUtil.placeElementAt(31, 'r_bar_up_rate', true);
+        this.formUtil.placeElementAt(30, 'r_bar_up_rate', true);
 
-        var text2 = this.add.text(450, 175, "drop rate", { fontFamily: "Arial", fontSize: "30px" });
+        var text2 = this.add.text(20, 175, "drop rate", { fontFamily: "Arial", fontSize: "30px" });
         this.formUtil.showElement("r_bar_down_rate");
         this.formUtil.scaleToGameW("r_bar_down_rate", .1);
-        this.formUtil.placeElementAt(42, 'r_bar_down_rate', true);
+        this.formUtil.placeElementAt(41, 'r_bar_down_rate', true);
 
-        var text3 = this.add.text(450, 230, "penalty", { fontFamily: "Arial", fontSize: "30px" });
+        var text3 = this.add.text(20, 230, "penalty", { fontFamily: "Arial", fontSize: "30px" });
         this.formUtil.showElement("r_bar_penalty_rate");
         this.formUtil.scaleToGameW("r_bar_penalty_rate", .1);
-        this.formUtil.placeElementAt(53, 'r_bar_penalty_rate', true);
+        this.formUtil.placeElementAt(52, 'r_bar_penalty_rate', true);
+
+        this.formUtil.showElement("l_bar_up_rate");
+        this.formUtil.scaleToGameW("l_bar_up_rate", .1);
+        this.formUtil.placeElementAt(26, 'l_bar_up_rate', true);
+
+        this.formUtil.showElement("l_bar_down_rate");
+        this.formUtil.scaleToGameW("l_bar_down_rate", .1);
+        this.formUtil.placeElementAt(37, 'l_bar_down_rate', true);
+
+        this.formUtil.showElement("l_bar_penalty_rate");
+        this.formUtil.scaleToGameW("l_bar_penalty_rate", .1);
+        this.formUtil.placeElementAt(48, 'l_bar_penalty_rate', true);
 
 
         // Save button
@@ -85,11 +92,14 @@ class ParametersScene extends Phaser.Scene {
             roundedRect2.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container2.on('pointerdown', function () {
-            this.scene.start("MenuScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate, r_bar_penalty_rate: this.rPenaltyRate });
+            this.scene.start("MenuScene", { l_bar_up_rate: this.lRiseRate, l_bar_down_rate: this.lDropRate, l_bar_penalty_rate: this.lPenaltyRate, r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate, r_bar_penalty_rate: this.rPenaltyRate });
         }, this);
     }
 
     saveValues() {
+        this.lRiseRate = this.formUtil.getTextAreaValue("l_bar_up_rate");
+        this.lDropRate = this.formUtil.getTextAreaValue("l_bar_down_rate");
+        this.lPenaltyRate = this.formUtil.getTextAreaValue("l_bar_penalty_rate");
         this.rRiseRate = this.formUtil.getTextAreaValue("r_bar_up_rate");
         this.rDropRate = this.formUtil.getTextAreaValue("r_bar_down_rate");
         this.rPenaltyRate = this.formUtil.getTextAreaValue("r_bar_penalty_rate");

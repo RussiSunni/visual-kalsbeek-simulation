@@ -98,6 +98,9 @@ class MenuScene extends Phaser.Scene {
             rows: 11,
             cols: 11
         });
+        this.formUtil.hideElement("l_bar_up_rate");
+        this.formUtil.hideElement("l_bar_down_rate");
+        this.formUtil.hideElement("l_bar_penalty_rate");
         this.formUtil.hideElement("r_bar_up_rate");
         this.formUtil.hideElement("r_bar_down_rate");
         this.formUtil.hideElement("r_bar_penalty_rate");
