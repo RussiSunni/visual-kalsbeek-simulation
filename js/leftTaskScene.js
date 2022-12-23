@@ -2,7 +2,7 @@ class LeftTaskScene extends Phaser.Scene {
     constructor() {
         super('LeftTaskScene');
         this.leftSideRect;
-        this.toneArray = [];
+        this.toneArray;
         this.currentTone;
         this.barTimedEvent;
         this.toneTimedEvent;
@@ -28,6 +28,9 @@ class LeftTaskScene extends Phaser.Scene {
 
     preload() {
         this.load.audio("gameOver", ["audio/game-over.wav"]);
+        this.load.audio("tone200hz", ["audio/200.wav"]);
+        this.load.audio("tone500hz", ["audio/500.wav"]);
+        this.load.audio("tone800hz", ["audio/800.wav"]);
     }
     create() {
         // Bar.
@@ -37,8 +40,13 @@ class LeftTaskScene extends Phaser.Scene {
         this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
 
         // Tones -----------------------.        
+        this.tone200hzAudio = this.sound.add("tone200hz");
+        this.tone500hzAudio = this.sound.add("tone500hz");
+        this.tone800hzAudio = this.sound.add("tone800hz");
+        this.toneArray = [this.tone200hzAudio, this.tone500hzAudio, this.tone800hzAudio];
+
         // Tone Timer.
-        this.toneTimedEvent = this.time.addEvent({ delay: 50, callback: this.changeLetter, callbackScope: this, loop: true });
+        this.toneTimedEvent = this.time.addEvent({ delay: 50, callback: this.changeTone, callbackScope: this, loop: true });
 
         // Keyboard Keys.
         this.WKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -60,9 +68,9 @@ class LeftTaskScene extends Phaser.Scene {
         // Test for Correct Key.
         if (this.hasWon == false && this.gameOver == false) {
             if (Phaser.Input.Keyboard.JustDown(this.WKey)) {
-                if (this.currentTone == "a") {
+                if (this.currentTone == this.toneArray[0]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -72,9 +80,9 @@ class LeftTaskScene extends Phaser.Scene {
                 }
             }
             else if (Phaser.Input.Keyboard.JustDown(this.SKey)) {
-                if (this.currentTone == "b") {
+                if (this.currentTone == this.toneArray[1]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -84,9 +92,9 @@ class LeftTaskScene extends Phaser.Scene {
                 }
             }
             else if (Phaser.Input.Keyboard.JustDown(this.XKey)) {
-                if (this.currentTone == "c") {
+                if (this.currentTone == this.toneArray[2]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -98,10 +106,10 @@ class LeftTaskScene extends Phaser.Scene {
         }
     }
 
-    changeLetter() {
+    changeTone() {
         if (this.gameOver == false && this.hasWon == false) {
-            //this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
-            //this.currentTone = this.letterText.text;
+            this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
+            this.currentTone.play();
         }
     }
 
