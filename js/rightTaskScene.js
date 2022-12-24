@@ -5,7 +5,6 @@ class RightTaskScene extends Phaser.Scene {
         this.letterTextArray = ["a", "b", "c"];
         this.currentLetter;
         this.barTimedEvent;
-        this.letterTimedEvent;
         this.BKey;
         this.NKey;
         this.MKey;
@@ -37,9 +36,8 @@ class RightTaskScene extends Phaser.Scene {
         this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
 
         // Letters -----------------------.
-        this.letterText = this.add.text(350, 200, this.letterTextArray[0], { fontFamily: "Arial", fontSize: "168px" });
-        // Letter Timer.
-        this.letterTimedEvent = this.time.addEvent({ delay: 50, callback: this.changeLetter, callbackScope: this, loop: true });
+        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
+        this.currentLetter = this.letterText.text;
 
         // Keyboard Keys.
         this.BKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
@@ -58,7 +56,6 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     update() {
-
         // Test for Correct Key.
         if (this.hasWon == false && this.gameOver == false) {
             if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
