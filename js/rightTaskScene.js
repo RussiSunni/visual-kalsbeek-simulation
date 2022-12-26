@@ -61,7 +61,7 @@ class RightTaskScene extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
                 if (this.currentLetter == "a") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    this.changeLetter();
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
                 }
                 else {
                     if (this.rightSideRect.y - this.rPenaltyRate > -400)
@@ -73,7 +73,7 @@ class RightTaskScene extends Phaser.Scene {
             else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
                 if (this.currentLetter == "b") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    this.changeLetter();
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
                 }
                 else {
                     if (this.rightSideRect.y - this.rPenaltyRate > -400)
@@ -85,7 +85,7 @@ class RightTaskScene extends Phaser.Scene {
             else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
                 if (this.currentLetter == "c") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
-                    this.changeLetter();
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
                 }
                 else {
                     if (this.rightSideRect.y - this.rPenaltyRate > -400)

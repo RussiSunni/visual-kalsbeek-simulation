@@ -68,7 +68,7 @@ class LeftTaskScene extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(this.WKey)) {
                 if (this.currentTone == this.toneArray[0]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeTone();
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -80,7 +80,7 @@ class LeftTaskScene extends Phaser.Scene {
             else if (Phaser.Input.Keyboard.JustDown(this.SKey)) {
                 if (this.currentTone == this.toneArray[1]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeTone();
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -92,7 +92,7 @@ class LeftTaskScene extends Phaser.Scene {
             else if (Phaser.Input.Keyboard.JustDown(this.XKey)) {
                 if (this.currentTone == this.toneArray[2]) {
                     this.leftSideRect.y = this.leftSideRect.y + this.lDropRate;
-                    this.changeTone();
+                    this.changeToneTimer = this.time.delayedCall(25, this.changeTone, [], this);
                 }
                 else {
                     if (this.leftSideRect.y - this.lPenaltyRate > -400)
@@ -106,6 +106,7 @@ class LeftTaskScene extends Phaser.Scene {
 
     changeTone() {
         if (this.gameOver == false && this.hasWon == false) {
+
             this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
             this.currentTone.play();
         }
