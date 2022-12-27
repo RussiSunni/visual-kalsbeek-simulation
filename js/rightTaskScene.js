@@ -5,9 +5,9 @@ class RightTaskScene extends Phaser.Scene {
         this.letterTextArray = ["a", "b", "c"];
         this.currentLetter;
         this.barTimedEvent;
-        this.BKey;
-        this.NKey;
         this.MKey;
+        this.COMMAKey;
+        this.PERIODKey;
         this.gameOver = false;
         this.hasWon = false;
         this.gameOverAudio;
@@ -40,9 +40,9 @@ class RightTaskScene extends Phaser.Scene {
         this.currentLetter = this.letterText.text;
 
         // Keyboard Keys.
-        this.BKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-        this.NKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
         this.MKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        this.COMMAKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.COMMA);
+        this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
         // Audio
         this.gameOverAudio = this.sound.add("gameOver");
@@ -58,7 +58,7 @@ class RightTaskScene extends Phaser.Scene {
     update() {
         // Test for Correct Key.
         if (this.hasWon == false && this.gameOver == false) {
-            if (Phaser.Input.Keyboard.JustDown(this.BKey)) {
+            if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
                 if (this.currentLetter == "a") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
@@ -70,7 +70,7 @@ class RightTaskScene extends Phaser.Scene {
                         this.rightSideRect.y = -400
                 }
             }
-            else if (Phaser.Input.Keyboard.JustDown(this.NKey)) {
+            else if (Phaser.Input.Keyboard.JustDown(this.COMMAKey)) {
                 if (this.currentLetter == "b") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
@@ -82,7 +82,7 @@ class RightTaskScene extends Phaser.Scene {
                         this.rightSideRect.y = -400
                 }
             }
-            else if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
+            else if (Phaser.Input.Keyboard.JustDown(this.PERIODKey)) {
                 if (this.currentLetter == "c") {
                     this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
                     this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
