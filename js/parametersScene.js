@@ -29,7 +29,7 @@ class ParametersScene extends Phaser.Scene {
         this.formUtil.scaleToGameW("r_bar_up_rate", .1);
         this.formUtil.placeElementAt(30, 'r_bar_up_rate', true);
 
-        var text2 = this.add.text(20, 175, "drop rate", { fontFamily: "Arial", fontSize: "30px" });
+        var text2 = this.add.text(20, 175, "drop amount", { fontFamily: "Arial", fontSize: "30px" });
         this.formUtil.showElement("r_bar_down_rate");
         this.formUtil.scaleToGameW("r_bar_down_rate", .1);
         this.formUtil.placeElementAt(41, 'r_bar_down_rate', true);
