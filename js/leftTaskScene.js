@@ -20,9 +20,9 @@ class LeftTaskScene extends Phaser.Scene {
     }
 
     init(data) {
-        this.lRiseRate = parseInt(data.l_bar_up_rate);
-        this.lDropRate = parseInt(data.l_bar_down_rate);
-        this.lPenaltyRate = parseInt(data.l_bar_penalty_rate);
+        this.lRiseRate = parseFloat(data.l_bar_up_rate);
+        this.lDropRate = parseFloat(data.l_bar_down_rate);
+        this.lPenaltyRate = parseFloat(data.l_bar_penalty_rate);
     }
 
     preload() {

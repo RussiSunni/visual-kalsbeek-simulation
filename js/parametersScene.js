@@ -1,10 +1,10 @@
 class ParametersScene extends Phaser.Scene {
     constructor() {
         super('ParametersScene');
-        this.lRiseRate = 1;
+        this.lRiseRate = 0.5;
         this.lDropRate = 8;
         this.lPenaltyRate = 0;
-        this.rRiseRate = 1;
+        this.rRiseRate = 0.5;
         this.rDropRate = 8;
         this.rPenaltyRate = 0;
     }

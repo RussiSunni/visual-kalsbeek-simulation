@@ -20,9 +20,9 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     init(data) {
-        this.rRiseRate = parseInt(data.r_bar_up_rate);
-        this.rDropRate = parseInt(data.r_bar_down_rate);
-        this.rPenaltyRate = parseInt(data.r_bar_penalty_rate);
+        this.rRiseRate = parseFloat(data.r_bar_up_rate);
+        this.rDropRate = parseFloat(data.r_bar_down_rate);
+        this.rPenaltyRate = parseFloat(data.r_bar_penalty_rate);
     }
 
     preload() {
