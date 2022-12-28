@@ -16,7 +16,7 @@ class LeftTaskScene extends Phaser.Scene {
         this.winText;
         this.lRiseRate;
         this.lDropRate;
-        this.lPenaltyRate;
+        this.lPenaltyRate;      
     }
 
     init(data) {
@@ -30,12 +30,13 @@ class LeftTaskScene extends Phaser.Scene {
         this.load.audio("tone200hz", ["audio/200.wav"]);
         this.load.audio("tone500hz", ["audio/500.wav"]);
         this.load.audio("tone800hz", ["audio/800.wav"]);
+        this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
         // Bar.
         this.leftSideRect = this.add.graphics();
         this.leftSideRect.fillStyle(0x0000FF);
-        this.leftSideRect.fillRect(200, 400, 100, 600);
+        this.leftSideRect.fillRect(100, 400, 100, 600);
         this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
 
         // Tones -----------------------.        
@@ -54,12 +55,36 @@ class LeftTaskScene extends Phaser.Scene {
         // Audio
         this.gameOverAudio = this.sound.add("gameOver");
         this.gameOverAudio.on("complete", this.repeatAudio, this);
+        this.loseAudio = this.sound.add("lose");
 
         // Win State------------------------------------
-        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
-
+        this.winTimer = this.time.delayedCall(50000, this.winEvent, [], this);
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
+
+
+        // Play Again Button --------------------------------
+        var roundedRect1 = this.add.graphics();
+        roundedRect1.fillStyle(0x70ad47, 1);
+        roundedRect1.fillRoundedRect(0, 0, 180, 60, 8);
+        var text1 = this.add.text(20, 15, "Play Again", { fontFamily: "Arial", fontSize: "30px" });
+        this.container1 = this.add.container(300, 500, [roundedRect1, text1]);
+        this.container1.setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 100), Phaser.Geom.Rectangle.Contains);
+        this.container1.alpha = 0;
+        this.container1.disableInteractive()
+        this.container1.on('pointerover', function () {
+            roundedRect1.clear();
+            roundedRect1.fillStyle(0x5d913a, 1);
+            roundedRect1.fillRoundedRect(0, 0, 180, 60, 8);
+        }, this);
+        this.container1.on('pointerout', function () {
+            roundedRect1.clear();
+            roundedRect1.fillStyle(0x70ad47, 1);
+            roundedRect1.fillRoundedRect(0, 0, 180, 60, 8);
+        }, this);
+        this.container1.on('pointerdown', function () {
+            this.scene.start("MenuScene");
+        }, this);
     }
 
     update() {
@@ -120,19 +145,23 @@ class LeftTaskScene extends Phaser.Scene {
         else if (this.hasWon == false) {
             if (this.gameOver == false) {
                 this.gameOver = true;
-                this.gameOverAudio.play();
+                this.loseAudio.play();
+                this.container1.alpha = 1;
+                this.container1.setInteractive() 
             }
         }
     }
 
-    gameOver() {
-
+    gameOverManager() {
     }
 
     winEvent() {
         if (this.gameOver == false) {
             this.winText.alpha = 1;
             this.hasWon = true;
+
+            this.container1.alpha = 1;
+            this.container1.setInteractive()
         }
     }
 
