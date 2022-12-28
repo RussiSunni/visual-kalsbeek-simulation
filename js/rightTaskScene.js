@@ -119,6 +119,10 @@ class RightTaskScene extends Phaser.Scene {
                 }
             }
         }
+
+        if (this.rightSideRect.y < -400) {
+            this.rightSideRect.y = -400;
+        }
     }
 
     changeLetter() {

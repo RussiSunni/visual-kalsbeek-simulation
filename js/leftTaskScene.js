@@ -16,7 +16,7 @@ class LeftTaskScene extends Phaser.Scene {
         this.winText;
         this.lRiseRate;
         this.lDropRate;
-        this.lPenaltyRate;      
+        this.lPenaltyRate;
     }
 
     init(data) {
@@ -127,6 +127,10 @@ class LeftTaskScene extends Phaser.Scene {
                 }
             }
         }
+
+        if (this.leftSideRect.y < -400) {
+            this.leftSideRect.y = -400;
+        }
     }
 
     changeTone() {
@@ -147,7 +151,7 @@ class LeftTaskScene extends Phaser.Scene {
                 this.gameOver = true;
                 this.loseAudio.play();
                 this.container1.alpha = 1;
-                this.container1.setInteractive() 
+                this.container1.setInteractive()
             }
         }
     }
