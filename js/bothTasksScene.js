@@ -1,6 +1,6 @@
-class LeftTaskScene extends Phaser.Scene {
+class BothTasksScene extends Phaser.Scene {
     constructor() {
-        super('LeftTaskScene');
+        super('BothTasksScene');
         this.leftSideRect;
         this.toneArray;
         this.currentTone;

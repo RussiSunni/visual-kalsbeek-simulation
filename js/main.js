@@ -6,7 +6,7 @@ window.onload = function () {
         height: 600,
         parent: 'phaser-game',
 
-        scene: [MenuScene, ParametersScene, LeftTaskScene, RightTaskScene]
+        scene: [MenuScene, ParametersScene, LeftTaskScene, RightTaskScene, BothTasksScene]
     };
     game = new Phaser.Game(config);
 }

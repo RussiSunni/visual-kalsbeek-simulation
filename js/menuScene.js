@@ -110,7 +110,7 @@ class MenuScene extends Phaser.Scene {
             roundedRect4.fillRoundedRect(0, 0, 200, 60, 8);
         }, this);
         this.container4.on('pointerdown', function () {
-            // this.scene.start("RightTaskScene", { r_bar_up_rate: this.rRiseRate, r_bar_down_rate: this.rDropRate, r_bar_penalty_rate: this.rPenaltyRate });
+            this.scene.start("BothTasksScene", { l_bar_up_rate: this.lRiseRate, l_bar_down_rate: this.lDropRate, l_bar_penalty_rate: this.lPenaltyRate });
         }, this);
 
 
