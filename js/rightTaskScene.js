@@ -26,32 +26,25 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     preload() {
-        //  this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
+        this.startTimedEvent = this.time.addEvent({ delay: 2000, callback: this.startEvent, callbackScope: this, loop: false });
+
         // Bar.
         this.rightSideRect = this.add.graphics();
         this.rightSideRect.fillStyle(0xFF0000);
         this.rightSideRect.fillRect(600, 400, 100, 600);
-        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
-
-        // Letters -----------------------.
-        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
-        this.currentLetter = this.letterText.text;
 
         // Keyboard Keys.
         this.MKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.COMMAKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.COMMA);
         this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
-        // Audio
-        //this.gameOverAudio = this.sound.add("gameOver");
-        //this.gameOverAudio.on("complete", this.repeatAudio, this);
+        // Audio        
         this.loseAudio = this.sound.add("lose");
 
-        // Win State------------------------------------
-        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+        // Win State------------------------------------        
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
 
@@ -157,10 +150,11 @@ class RightTaskScene extends Phaser.Scene {
         }
     }
 
-    // repeatAudio() {
-    //     if (this.gameOverAudioIteration < 4) {
-    //         this.gameOverAudioIteration++;
-    //         this.gameOverAudio.play();
-    //     }
-    // }
+    startEvent() {
+        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
+
+        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
+        this.currentLetter = this.letterText.text;
+    }
 }
