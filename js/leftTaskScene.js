@@ -26,39 +26,35 @@ class LeftTaskScene extends Phaser.Scene {
     }
 
     preload() {
-        //  this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("tone200hz", ["audio/200.wav"]);
         this.load.audio("tone500hz", ["audio/500.wav"]);
         this.load.audio("tone800hz", ["audio/800.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
+
     create() {
+        this.startTimedEvent = this.time.addEvent({ delay: 2000, callback: this.startEvent, callbackScope: this, loop: false });
+
         // Bar.
         this.leftSideRect = this.add.graphics();
         this.leftSideRect.fillStyle(0x0000FF);
         this.leftSideRect.fillRect(100, 400, 100, 600);
-        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
 
         // Tones -----------------------.        
         this.tone200hzAudio = this.sound.add("tone200hz");
         this.tone500hzAudio = this.sound.add("tone500hz");
         this.tone800hzAudio = this.sound.add("tone800hz");
         this.toneArray = [this.tone200hzAudio, this.tone500hzAudio, this.tone800hzAudio];
-        this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
-        this.currentTone.play();
 
         // Keyboard Keys.
         this.WKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.SKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.XKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
-        // Audio
-        // this.gameOverAudio = this.sound.add("gameOver");
-        // this.gameOverAudio.on("complete", this.repeatAudio, this);
+        // Audio        
         this.loseAudio = this.sound.add("lose");
 
-        // Win State------------------------------------
-        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+        // Win State------------------------------------        
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
 
@@ -169,10 +165,12 @@ class LeftTaskScene extends Phaser.Scene {
         }
     }
 
-    // repeatAudio() {
-    //     if (this.gameOverAudioIteration < 4) {
-    //         this.gameOverAudioIteration++;
-    //         this.gameOverAudio.play();
-    //     }
-    // }
+    startEvent() {
+        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+
+        // Left Side.
+        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
+        this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
+        this.currentTone.play();
+    }
 }

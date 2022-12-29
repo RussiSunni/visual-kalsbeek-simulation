@@ -17,9 +17,7 @@ class BothTasksScene extends Phaser.Scene {
         this.PERIODKey;
         this.gameOver = false;
         this.hasWon = false;
-        //   this.gameOverAudio;
-        //   this.gameOverAudioIteration = 0;
-        this.winTimer;
+        this.winTimer; 
         this.winText;
         this.lRiseRate;
         this.lDropRate;
@@ -39,27 +37,25 @@ class BothTasksScene extends Phaser.Scene {
     }
 
     preload() {
-        //    this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("tone200hz", ["audio/200.wav"]);
         this.load.audio("tone500hz", ["audio/500.wav"]);
         this.load.audio("tone800hz", ["audio/800.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
+        this.startTimedEvent = this.time.addEvent({ delay: 2000, callback: this.startEvent, callbackScope: this, loop: false });
+
         // Left Side Task.
         // Bar.
         this.leftSideRect = this.add.graphics();
         this.leftSideRect.fillStyle(0x0000FF);
         this.leftSideRect.fillRect(100, 400, 100, 600);
-        this.leftBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseLeftBar, callbackScope: this, loop: true });
 
         // Tones -----------------------.        
         this.tone200hzAudio = this.sound.add("tone200hz");
         this.tone500hzAudio = this.sound.add("tone500hz");
         this.tone800hzAudio = this.sound.add("tone800hz");
         this.toneArray = [this.tone200hzAudio, this.tone500hzAudio, this.tone800hzAudio];
-        this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
-        this.currentTone.play();
 
         // Keyboard Keys.
         this.WKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -71,11 +67,6 @@ class BothTasksScene extends Phaser.Scene {
         this.rightSideRect = this.add.graphics();
         this.rightSideRect.fillStyle(0xFF0000);
         this.rightSideRect.fillRect(600, 400, 100, 600);
-        this.rightBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseRightBar, callbackScope: this, loop: true });
-
-        // Letters -----------------------.
-        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
-        this.currentLetter = this.letterText.text;
 
         // Keyboard Keys.
         this.MKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
@@ -83,13 +74,10 @@ class BothTasksScene extends Phaser.Scene {
         this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
         // Both Tasks.
-        // Audio
-        //  this.gameOverAudio = this.sound.add("gameOver");
-        //  this.gameOverAudio.on("complete", this.repeatAudio, this);
+        // Audio        
         this.loseAudio = this.sound.add("lose");
 
-        // Win State------------------------------------
-        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+        // Win State------------------------------------        
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
 
@@ -255,5 +243,19 @@ class BothTasksScene extends Phaser.Scene {
             this.container1.alpha = 1;
             this.container1.setInteractive()
         }
+    }
+
+    startEvent() {
+        this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
+
+        // Left Side.
+        this.leftBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseLeftBar, callbackScope: this, loop: true });
+        this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
+        this.currentTone.play();
+
+        // Right Side
+        this.rightBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseRightBar, callbackScope: this, loop: true });
+        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
+        this.currentLetter = this.letterText.text;
     }
 }
