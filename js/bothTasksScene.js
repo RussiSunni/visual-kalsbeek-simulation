@@ -2,42 +2,56 @@ class BothTasksScene extends Phaser.Scene {
     constructor() {
         super('BothTasksScene');
         this.leftSideRect;
+        this.rightSideRect;
         this.toneArray;
         this.currentTone;
-        this.barTimedEvent;
+        this.letterTextArray = ["a", "b", "c"];
+        this.currentLetter;
+        this.leftBarTimedEvent;
+        this.rightBarTimedEvent;
         this.WKey;
         this.SKey;
         this.XKey;
+        this.MKey;
+        this.COMMAKey;
+        this.PERIODKey;
         this.gameOver = false;
         this.hasWon = false;
-        this.gameOverAudio;
-        this.gameOverAudioIteration = 0;
+        //   this.gameOverAudio;
+        //   this.gameOverAudioIteration = 0;
         this.winTimer;
         this.winText;
         this.lRiseRate;
         this.lDropRate;
         this.lPenaltyRate;
+        this.rRiseRate;
+        this.rDropRate;
+        this.rPenaltyRate;
     }
 
     init(data) {
         this.lRiseRate = parseFloat(data.l_bar_up_rate);
         this.lDropRate = parseFloat(data.l_bar_down_rate);
         this.lPenaltyRate = parseFloat(data.l_bar_penalty_rate);
+        this.rRiseRate = parseFloat(data.r_bar_up_rate);
+        this.rDropRate = parseFloat(data.r_bar_down_rate);
+        this.rPenaltyRate = parseFloat(data.r_bar_penalty_rate);
     }
 
     preload() {
-        this.load.audio("gameOver", ["audio/game-over.wav"]);
+        //    this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("tone200hz", ["audio/200.wav"]);
         this.load.audio("tone500hz", ["audio/500.wav"]);
         this.load.audio("tone800hz", ["audio/800.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
+        // Left Side Task.
         // Bar.
         this.leftSideRect = this.add.graphics();
         this.leftSideRect.fillStyle(0x0000FF);
         this.leftSideRect.fillRect(100, 400, 100, 600);
-        this.barTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseBar, callbackScope: this, loop: true });
+        this.leftBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseLeftBar, callbackScope: this, loop: true });
 
         // Tones -----------------------.        
         this.tone200hzAudio = this.sound.add("tone200hz");
@@ -52,16 +66,32 @@ class BothTasksScene extends Phaser.Scene {
         this.SKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.XKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
+        // Right Side Task.
+        // Bar.
+        this.rightSideRect = this.add.graphics();
+        this.rightSideRect.fillStyle(0xFF0000);
+        this.rightSideRect.fillRect(600, 400, 100, 600);
+        this.rightBarTimedEvent = this.time.addEvent({ delay: 50, callback: this.raiseRightBar, callbackScope: this, loop: true });
+
+        // Letters -----------------------.
+        this.letterText = this.add.text(350, 200, this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)], { fontFamily: "Arial", fontSize: "168px" });
+        this.currentLetter = this.letterText.text;
+
+        // Keyboard Keys.
+        this.MKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        this.COMMAKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.COMMA);
+        this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
+
+        // Both Tasks.
         // Audio
-        this.gameOverAudio = this.sound.add("gameOver");
-        this.gameOverAudio.on("complete", this.repeatAudio, this);
+        //  this.gameOverAudio = this.sound.add("gameOver");
+        //  this.gameOverAudio.on("complete", this.repeatAudio, this);
         this.loseAudio = this.sound.add("lose");
 
         // Win State------------------------------------
         this.winTimer = this.time.delayedCall(40000, this.winEvent, [], this);
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
         this.winText.alpha = 0;
-
 
         // Play Again Button --------------------------------
         var roundedRect1 = this.add.graphics();
@@ -126,22 +156,68 @@ class BothTasksScene extends Phaser.Scene {
                         this.leftSideRect.y = -400
                 }
             }
+
+            if (Phaser.Input.Keyboard.JustDown(this.MKey)) {
+                if (this.currentLetter == "a") {
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
+                }
+            }
+            else if (Phaser.Input.Keyboard.JustDown(this.COMMAKey)) {
+                if (this.currentLetter == "b") {
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
+                }
+            }
+            else if (Phaser.Input.Keyboard.JustDown(this.PERIODKey)) {
+                if (this.currentLetter == "c") {
+                    this.rightSideRect.y = this.rightSideRect.y + this.rDropRate;
+                    this.changeLetterTimer = this.time.delayedCall(25, this.changeLetter, [], this);
+                }
+                else {
+                    if (this.rightSideRect.y - this.rPenaltyRate > -400)
+                        this.rightSideRect.y = this.rightSideRect.y - this.rPenaltyRate;
+                    else
+                        this.rightSideRect.y = -400
+                }
+            }
         }
 
         if (this.leftSideRect.y < -400) {
             this.leftSideRect.y = -400;
         }
+        if (this.rightSideRect.y < -400) {
+            this.rightSideRect.y = -400;
+        }
     }
 
     changeTone() {
         if (this.gameOver == false && this.hasWon == false) {
-
             this.currentTone = this.toneArray[Math.floor(Math.random() * this.toneArray.length)];
             this.currentTone.play();
         }
     }
 
-    raiseBar() {
+    changeLetter() {
+        if (this.gameOver == false && this.hasWon == false) {
+            this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
+            this.currentLetter = this.letterText.text;
+        }
+    }
+
+    raiseLeftBar() {
         // Bar rising.
         if (this.leftSideRect.y > -400 && this.hasWon == false && this.gameOver == false) {
             this.leftSideRect.y = this.leftSideRect.y - this.lRiseRate;
@@ -156,7 +232,19 @@ class BothTasksScene extends Phaser.Scene {
         }
     }
 
-    gameOverManager() {
+    raiseRightBar() {
+        // Bar rising.
+        if (this.rightSideRect.y > -400 && this.hasWon == false && this.gameOver == false) {
+            this.rightSideRect.y = this.rightSideRect.y - this.rRiseRate;
+        }
+        else if (this.hasWon == false) {
+            if (this.gameOver == false) {
+                this.gameOver = true;
+                this.loseAudio.play();
+                this.container1.alpha = 1;
+                this.container1.setInteractive()
+            }
+        }
     }
 
     winEvent() {
@@ -166,13 +254,6 @@ class BothTasksScene extends Phaser.Scene {
 
             this.container1.alpha = 1;
             this.container1.setInteractive()
-        }
-    }
-
-    repeatAudio() {
-        if (this.gameOverAudioIteration < 4) {
-            this.gameOverAudioIteration++;
-            this.gameOverAudio.play();
         }
     }
 }

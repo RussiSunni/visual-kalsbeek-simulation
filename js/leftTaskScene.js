@@ -26,7 +26,7 @@ class LeftTaskScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio("gameOver", ["audio/game-over.wav"]);
+        //  this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("tone200hz", ["audio/200.wav"]);
         this.load.audio("tone500hz", ["audio/500.wav"]);
         this.load.audio("tone800hz", ["audio/800.wav"]);

@@ -26,7 +26,7 @@ class RightTaskScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio("gameOver", ["audio/game-over.wav"]);
+        //  this.load.audio("gameOver", ["audio/game-over.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
