@@ -53,8 +53,8 @@ class LeftTaskScene extends Phaser.Scene {
         this.XKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
         // Audio
-        this.gameOverAudio = this.sound.add("gameOver");
-        this.gameOverAudio.on("complete", this.repeatAudio, this);
+        // this.gameOverAudio = this.sound.add("gameOver");
+        // this.gameOverAudio.on("complete", this.repeatAudio, this);
         this.loseAudio = this.sound.add("lose");
 
         // Win State------------------------------------
@@ -169,10 +169,10 @@ class LeftTaskScene extends Phaser.Scene {
         }
     }
 
-    repeatAudio() {
-        if (this.gameOverAudioIteration < 4) {
-            this.gameOverAudioIteration++;
-            this.gameOverAudio.play();
-        }
-    }
+    // repeatAudio() {
+    //     if (this.gameOverAudioIteration < 4) {
+    //         this.gameOverAudioIteration++;
+    //         this.gameOverAudio.play();
+    //     }
+    // }
 }

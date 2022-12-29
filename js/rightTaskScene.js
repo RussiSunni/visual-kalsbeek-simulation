@@ -46,8 +46,8 @@ class RightTaskScene extends Phaser.Scene {
         this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
         // Audio
-        this.gameOverAudio = this.sound.add("gameOver");
-        this.gameOverAudio.on("complete", this.repeatAudio, this);
+        //this.gameOverAudio = this.sound.add("gameOver");
+        //this.gameOverAudio.on("complete", this.repeatAudio, this);
         this.loseAudio = this.sound.add("lose");
 
         // Win State------------------------------------
@@ -157,10 +157,10 @@ class RightTaskScene extends Phaser.Scene {
         }
     }
 
-    repeatAudio() {
-        if (this.gameOverAudioIteration < 4) {
-            this.gameOverAudioIteration++;
-            this.gameOverAudio.play();
-        }
-    }
+    // repeatAudio() {
+    //     if (this.gameOverAudioIteration < 4) {
+    //         this.gameOverAudioIteration++;
+    //         this.gameOverAudio.play();
+    //     }
+    // }
 }
