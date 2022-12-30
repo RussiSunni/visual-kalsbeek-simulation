@@ -17,7 +17,7 @@ class BothTasksScene extends Phaser.Scene {
         this.PERIODKey;
         this.gameOver = false;
         this.hasWon = false;
-        this.winTimer; 
+        this.winTimer;
         this.winText;
         this.lRiseRate;
         this.lDropRate;
@@ -37,9 +37,12 @@ class BothTasksScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio("tone200hz", ["audio/200.wav"]);
-        this.load.audio("tone500hz", ["audio/500.wav"]);
-        this.load.audio("tone800hz", ["audio/800.wav"]);
+        // this.load.audio("tone200hz", ["audio/200.wav"]);
+        // this.load.audio("tone500hz", ["audio/500.wav"]);
+        // this.load.audio("tone800hz", ["audio/800.wav"]);
+        this.load.audio("tone200hz", ["audio/low.wav"]);
+        this.load.audio("tone500hz", ["audio/medium.wav"]);
+        this.load.audio("tone800hz", ["audio/high.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
