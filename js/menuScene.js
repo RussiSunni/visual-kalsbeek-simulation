@@ -1,10 +1,10 @@
 class MenuScene extends Phaser.Scene {
     constructor() {
         super('MenuScene');
-        this.lRiseRate = 0.5;
+        this.lRiseRate = 0.7;
         this.lDropRate = 8;
         this.lPenaltyRate = 0;
-        this.rRiseRate = 0.5;
+        this.rRiseRate = 0.7;
         this.rDropRate = 8;
         this.rPenaltyRate = 0;
     }
