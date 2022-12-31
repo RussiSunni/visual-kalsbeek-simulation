@@ -37,12 +37,9 @@ class BothTasksScene extends Phaser.Scene {
     }
 
     preload() {
-        // this.load.audio("tone200hz", ["audio/200.wav"]);
-        // this.load.audio("tone500hz", ["audio/500.wav"]);
-        // this.load.audio("tone800hz", ["audio/800.wav"]);
-        this.load.audio("tone200hz", ["audio/low.wav"]);
-        this.load.audio("tone500hz", ["audio/medium.wav"]);
         this.load.audio("tone800hz", ["audio/high.wav"]);
+        this.load.audio("tone500hz", ["audio/medium.wav"]);
+        this.load.audio("tone200hz", ["audio/low.wav"]);
         this.load.audio("lose", ["audio/glass-smash.wav"]);
     }
     create() {
@@ -55,10 +52,10 @@ class BothTasksScene extends Phaser.Scene {
         this.leftSideRect.fillRect(100, 400, 100, 600);
 
         // Tones -----------------------.        
-        this.tone200hzAudio = this.sound.add("tone200hz");
-        this.tone500hzAudio = this.sound.add("tone500hz");
         this.tone800hzAudio = this.sound.add("tone800hz");
-        this.toneArray = [this.tone200hzAudio, this.tone500hzAudio, this.tone800hzAudio];
+        this.tone500hzAudio = this.sound.add("tone500hz");
+        this.tone200hzAudio = this.sound.add("tone200hz");
+        this.toneArray = [this.tone800hzAudio, this.tone500hzAudio, this.tone200hzAudio];
 
         // Keyboard Keys.
         this.WKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
