@@ -120,8 +120,14 @@ class RightTaskScene extends Phaser.Scene {
 
     changeLetter() {
         if (this.gameOver == false && this.hasWon == false) {
-            this.letterText.text = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
-            this.currentLetter = this.letterText.text;
+            var tempLetter = this.letterTextArray[Math.floor(Math.random() * this.letterTextArray.length)];
+            if (this.currentLetter == tempLetter) {
+                this.changeLetter();
+            }
+            else {
+                this.letterText.text = tempLetter;
+                this.currentLetter = tempLetter;
+            }
         }
     }
 
