@@ -153,6 +153,9 @@ class RightTaskScene extends Phaser.Scene {
         if (this.gameOver == false) {
             this.winText.alpha = 1;
             this.hasWon = true;
+
+            this.container1.alpha = 1;
+            this.container1.setInteractive();
         }
     }
 
