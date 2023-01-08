@@ -15,8 +15,8 @@ class BothTasksScene extends Phaser.Scene {
         this.MKey;
         this.COMMAKey;
         this.PERIODKey;
-        this.gameOver = false;
-        this.hasWon = false;
+        this.gameOver;
+        this.hasWon;
         this.winTimer;
         this.winText;
         this.loseText;
@@ -35,6 +35,9 @@ class BothTasksScene extends Phaser.Scene {
         this.rRiseRate = parseFloat(data.r_bar_up_rate);
         this.rDropRate = parseFloat(data.r_bar_down_rate);
         this.rPenaltyRate = parseFloat(data.r_bar_penalty_rate);
+
+        this.gameOver = false;
+        this.hasWon = false;
     }
 
     preload() {

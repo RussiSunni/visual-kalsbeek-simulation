@@ -8,14 +8,14 @@ class LeftTaskScene extends Phaser.Scene {
         this.WKey;
         this.SKey;
         this.XKey;
-        this.gameOver = false;
-        this.hasWon = false;
+        this.gameOver;
+        this.hasWon;
         this.gameOverAudio;
         this.gameOverAudioIteration = 0;
         this.winTimer;
         this.winText;
         this.loseText;
-        this.lRiseRate;
+        this.lRiseRate; 
         this.lDropRate;
         this.lPenaltyRate;
     }
@@ -24,6 +24,9 @@ class LeftTaskScene extends Phaser.Scene {
         this.lRiseRate = parseFloat(data.l_bar_up_rate);
         this.lDropRate = parseFloat(data.l_bar_down_rate);
         this.lPenaltyRate = parseFloat(data.l_bar_penalty_rate);
+
+        this.gameOver = false;
+        this.hasWon = false;
     }
 
     preload() {
