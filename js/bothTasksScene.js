@@ -19,6 +19,7 @@ class BothTasksScene extends Phaser.Scene {
         this.hasWon = false;
         this.winTimer;
         this.winText;
+        this.loseText;
         this.lRiseRate;
         this.lDropRate;
         this.lPenaltyRate;
@@ -74,8 +75,10 @@ class BothTasksScene extends Phaser.Scene {
         this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
         // Both Tasks.
-        // Audio        
+        // Lose State -----------------------------
         this.loseAudio = this.sound.add("lose");
+        this.loseText = this.add.text(100, 100, "Sorry, you lost the game!", { fontFamily: "Arial", fontSize: "56px" });
+        this.loseText.alpha = 0;
 
         // Win State------------------------------------        
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
@@ -222,6 +225,7 @@ class BothTasksScene extends Phaser.Scene {
                 this.loseAudio.play();
                 this.container1.alpha = 1;
                 this.container1.setInteractive()
+                this.loseText.alpha = 1;
             }
         }
     }
@@ -237,6 +241,7 @@ class BothTasksScene extends Phaser.Scene {
                 this.loseAudio.play();
                 this.container1.alpha = 1;
                 this.container1.setInteractive()
+                this.loseText.alpha = 1;
             }
         }
     }

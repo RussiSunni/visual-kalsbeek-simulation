@@ -14,6 +14,7 @@ class RightTaskScene extends Phaser.Scene {
         this.gameOverAudioIteration = 0;
         this.winTimer;
         this.winText;
+        this.loseText;
         this.rRiseRate;
         this.rDropRate;
         this.rPenaltyRate;
@@ -41,8 +42,10 @@ class RightTaskScene extends Phaser.Scene {
         this.COMMAKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.COMMA);
         this.PERIODKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD);
 
-        // Audio        
+        // Lose State -----------------------------
         this.loseAudio = this.sound.add("lose");
+        this.loseText = this.add.text(100, 100, "Sorry, you lost the game!", { fontFamily: "Arial", fontSize: "56px" });
+        this.loseText.alpha = 0;
 
         // Win State------------------------------------        
         this.winText = this.add.text(100, 100, "Congratulations", { fontFamily: "Arial", fontSize: "80px" });
@@ -142,6 +145,7 @@ class RightTaskScene extends Phaser.Scene {
                 this.loseAudio.play();
                 this.container1.alpha = 1;
                 this.container1.setInteractive()
+                this.loseText.alpha = 1;
             }
         }
     }
