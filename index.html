@@ -81,6 +81,12 @@
     <input style="display: none;" type="text" id="r_bar_penalty_rate" value="0" />
 
     <script>
+        // Hide the instructions sidebar if this is not the first time the user has visited the site.
+        if (localStorage.getItem("hasSeenInstructions") == "true") {
+            document.getElementById("sidebar").style.display = "none";
+        }
+
+        // Toggle sidebar button.
         function ToggleSidebar() {
             if (document.getElementById("sidebar").style.display == "none") {
                 document.getElementById("sidebar").style.display = "block";
@@ -89,6 +95,9 @@
                 document.getElementById("sidebar").style.display = "none";
             }
         }
+
+        // Save that the user has already visited the site, to their browser.
+        localStorage.setItem("hasSeenInstructions", "true");       
     </script>
 </body>
 
