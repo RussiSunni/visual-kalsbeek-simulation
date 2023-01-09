@@ -19,6 +19,11 @@
             background-color: black;
         }
 
+        .instructions-btn {
+            position: fixed;
+            right: 0px;
+        }
+
         .sidebar {
             height: 100%;
             width: 200px;
@@ -50,10 +55,11 @@
 <body>
     <div class="container-fluid">
         <div>
-            <div class="sidebar w3-bar-block w3-collapse w3-card w3-animate-right" style="width:200px;right:0;"
-                id="sidebar">
-                <button class="w3-bar-item w3-button w3-large" onclick="CloseSidebar()">Close
-                    &times;</button>
+            <button class="instructions-btn w3-bar-item w3-button w3-large" onclick="ToggleSidebar()">
+                <img src="./icons/info-solid.svg" height="24">
+            </button>
+            <div class="sidebar w3-bar-block w3-collapse w3-card w3-animate-right"
+                style="width:200px;right:0; top: 43px" id="sidebar">
                 <h4 class="pe-3 mt-2">Instructions</h4>
                 <p class="pe-3"><em>(Case doesn't matter)</em></p>
                 <h5 class="mt-2">Left Task</h5>
@@ -70,8 +76,6 @@
                 </ul>
             </div>
             <div class="w3-main" style="margin-right: 200px;">
-                <button class="w3-button w3-teal w3-xlarge w3-right w3-hide-large"
-                    onclick="OpenSidebar()">&#9776;</button>
                 <div id='phaser-game'></div>
             </div>
         </div>
@@ -84,12 +88,13 @@
         <input style="display: none;" type="text" id="r_bar_penalty_rate" value="0" />
 
         <script>
-            function OpenSidebar() {
-                document.getElementById("sidebar").style.display = "block";
-            }
-
-            function CloseSidebar() {
-                document.getElementById("sidebar").style.display = "none";
+            function ToggleSidebar() {
+                if (document.getElementById("sidebar").style.display == "none") {
+                    document.getElementById("sidebar").style.display = "block";
+                }
+                else {
+                    document.getElementById("sidebar").style.display = "none";
+                }
             }
         </script>
 </body>
