@@ -73,18 +73,18 @@
     <div id='phaser-game'></div>
 
     <!-- Parameters Form -->
-    <input style="display: none;" type="text" id="l_bar_up_rate" value="0.7" />
-    <input style="display: none;" type="text" id="l_bar_down_rate" value="8" />
-    <input style="display: none;" type="text" id="l_bar_penalty_rate" value="0" />
-    <input style="display: none;" type="text" id="r_bar_up_rate" value="0.7" />
-    <input style="display: none;" type="text" id="r_bar_down_rate" value="8" />
-    <input style="display: none;" type="text" id="r_bar_penalty_rate" value="0" />
+    <input style="display: none;" type="text" id="l_bar_up_rate" value="8" />
+    <input style="display: none;" type="text" id="l_bar_down_rate" value="12" />
+    <input style="display: none;" type="text" id="l_bar_penalty_rate" value="20" />
+    <input style="display: none;" type="text" id="r_bar_up_rate" value="8" />
+    <input style="display: none;" type="text" id="r_bar_down_rate" value="12" />
+    <input style="display: none;" type="text" id="r_bar_penalty_rate" value="20" />
 
     <script>
         // Hide the instructions sidebar if this is not the first time the user has visited the site.
-        if (localStorage.getItem("hasSeenInstructions") == "true") {
-            document.getElementById("sidebar").style.display = "none";
-        }
+        // if (localStorage.getItem("hasSeenInstructions") == "true") {
+        //     document.getElementById("sidebar").style.display = "none";
+        // }
 
         // Toggle sidebar button.
         function ToggleSidebar() {
@@ -97,7 +97,7 @@
         }
 
         // Save that the user has already visited the site, to their browser.
-        localStorage.setItem("hasSeenInstructions", "true");       
+      //  localStorage.setItem("hasSeenInstructions", "true");       
     </script>
 </body>
 
